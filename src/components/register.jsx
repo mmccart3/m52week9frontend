@@ -1,3 +1,5 @@
+import { writecookie } from "../utils/utilities";
+
 function Register(props) {
     async function sendRegisterToBackEnd(email, password) {
         try {
@@ -12,7 +14,9 @@ function Register(props) {
                     })
                 }
             )
-            console.log(response);
+            const data = await response.json();
+            console.log(data.token);
+            writecookie("jwt_token",data.token,7);
         } catch (error) {
             console.log(error)
         }
