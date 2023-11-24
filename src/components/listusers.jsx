@@ -1,8 +1,6 @@
-import { useState } from "react";
 import { readCookie } from "../utils/utilities";
 
 function Listusers(props) {
-    const [userList,setUserList] = useState([]);
     async function getListOfusers(setUserList,userList) {
         try {
             const jwt_token = await readCookie("jwt_token");
@@ -26,11 +24,11 @@ function Listusers(props) {
 
 
     function handleClick(event) {
-        getListOfusers(setUserList, userList)
+        getListOfusers(props.setUserList, props.userList)
     }
 
     function handleOffClick(event) {
-        setUserList([]);
+        props.setUserList([]);
             }
 
     return (
@@ -41,7 +39,7 @@ function Listusers(props) {
                 <button onClick={handleOffClick}>Press to close List</button>
                 <p>The user list is as follows:</p>
                 <br></br>
-                {userList.map((item,index) => {return(
+                {props.userList && props.userList.map((item,index) => {return(
                     <div>
                         <h3>{item.email}</h3>
                     </div>

@@ -1,8 +1,10 @@
 import { writecookie } from "../utils/utilities";
 
 function Login(props) {
-    async function sendLoginToBackEnd(email, password) {
+    async function sendLoginToBackEnd(email, password, setLoggedIn) {
         try {
+            console.log(email)
+            console.log(password)
             const response = await fetch(
                 "http://localhost:5001/loginUser",
                 {
@@ -15,8 +17,9 @@ function Login(props) {
                 }
             )
             const data = await response.json();
-            console.log(data.token);
+            console.log(data);
             writecookie("jwt_token",data.token,7);
+            setLoggedIn(true);
         } catch (error) {
             console.log(error)
         }
@@ -24,7 +27,7 @@ function Login(props) {
 
     function handleSubmit(event) {
         event.preventDefault();
-        sendLoginToBackEnd(props.email, props.password)
+        sendLoginToBackEnd(props.email, props.password, props.setLoggedIn)
     }
      console.log(props.email)
     return (
